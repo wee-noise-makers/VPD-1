@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<state name="Resonant" author="Wee Noise Makers" tags="">
+  <state wt1="AKWP stringbox" wt2="Analog PWM Square 05" wt1Size="-1"
+         wt2Size="-1" wt1Data="0." wt2Data="0." pd1Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMC4yNTAwMDA5NTM2NzQzMTY0IiBleD0iMC4wIiBleT0iMC4yNTAwMDA5NTM2NzQzMTY0Ii8+DQogIDxyYW5nZSBzeD0iMS4wIiBzeT0iMS4yNDAwMDA3MjQ3OTI0OCIgZXg9IjEuMCIgZXk9IjUuOTgwMDAwNDk1OTEwNjQ1Ii8+DQo8L3BkY3VydmU+DQo="
+         pd2Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMC4wIiBleD0iMC4wIiBleT0iMC4wIi8+DQogIDxyYW5nZSBzeD0iMC41IiBzeT0iMC41IiBleD0iMC41MDk5OTk5OTA0NjMyNTY4IiBleT0iNC4wMDAwMDA5NTM2NzQzMTYiLz4NCiAgPHJhbmdlIHN4PSIxLjAiIHN5PSIxLjAiIGV4PSIxLjAiIGV5PSIxLjAiLz4NCjwvcGRjdXJ2ZT4NCg=="
+         pdgain1Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMC4wIiBleD0iMC4wIiBleT0iMC4wIi8+DQogIDxyYW5nZSBzeD0iMC4xNzAwMDAwMDE3ODgxMzkzIiBzeT0iMS4wIiBleD0iMC4xNTk5OTk5OTY0MjM3MjEzIiBleT0iMS4wIi8+DQogIDxyYW5nZSBzeD0iMC43Nzk5OTk5NzEzODk3NzA1IiBzeT0iMS4wIiBleD0iMC43NSIgZXk9IjEuMCIvPg0KICA8cmFuZ2Ugc3g9IjEuMCIgc3k9IjAuMCIgZXg9IjEuMCIgZXk9IjAuMCIvPg0KPC9wZGN1cnZlPg0K"
+         pdgain2Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMS4wIiBleD0iMC4wIiBleT0iMS4wIi8+DQogIDxyYW5nZSBzeD0iMS4wIiBzeT0iMS4wIiBleD0iMS4wIiBleT0iMS4wIi8+DQo8L3BkY3VydmU+DQo=">
+    <instance editorScale="1.0" browserOpen="0" selectedAuthors="Wee Noise Makers"
+              selectedTags="">
+      <MIDILEARN/>
+    </instance>
+    <MODMATRIX>
+      <MODITEM srcId="env1" depth="1.0" enabled="1" dstId="osc1pos" function="linear"
+               biPolarMapping="0"/>
+      <MODITEM srcId="env1" depth="1.0" enabled="1" dstId="osc1bend" function="linear"
+               biPolarMapping="0"/>
+      <MODITEM srcId="env1" depth="1.0" enabled="1" dstId="osc2level" function="linear"
+               biPolarMapping="0"/>
+      <MODITEM srcId="env1" depth="1.0" enabled="1" dstId="osc2pos" function="linear"
+               biPolarMapping="0"/>
+      <MODITEM srcId="env1" depth="1.0" enabled="1" dstId="osc2bend" function="linear"
+               biPolarMapping="0"/>
+    </MODMATRIX>
+  </state>
+  <param uid="osc1tune" val="-24.0"/>
+  <param uid="osc1detune" val="0.25070521235466"/>
+  <param uid="osc1spread" val="52.94892501831055"/>
+  <param uid="osc1oversampling" val="8.0"/>
+  <param uid="osc2tune" val="-24.0"/>
+  <param uid="osc2level" val="-100.0"/>
+  <param uid="osc2oversampling" val="8.0"/>
+  <param uid="fltfreq" val="106.4391021728516"/>
+  <param uid="fltattack" val="0.09999998658895493"/>
+  <param uid="fltdecay" val="0.09999998658895493"/>
+  <param uid="fltrelease" val="0.09999998658895493"/>
+  <param uid="env1enable" val="1.0"/>
+  <param uid="env1attack" val="1.969677329063416"/>
+  <param uid="env1decay" val="2.62127947807312"/>
+  <param uid="env1sustain" val="20.89552307128906"/>
+  <param uid="env1release" val="0.09999998658895493"/>
+  <param uid="env2attack" val="0.09999998658895493"/>
+  <param uid="env2decay" val="0.09999998658895493"/>
+  <param uid="env2release" val="0.09999998658895493"/>
+  <param uid="env3attack" val="0.09999998658895493"/>
+  <param uid="env3decay" val="0.09999998658895493"/>
+  <param uid="env3release" val="0.09999998658895493"/>
+  <param uid="attack" val="0.09999998658895493"/>
+  <param uid="decay" val="0.09999998658895493"/>
+  <param uid="release" val="0.09999998658895493"/>
+  <param uid="mpe" val="1.0"/>
+  <param uid="uiMOD" val="1.0"/>
+  <param uid="dlEnable" val="1.0"/>
+  <param uid="rvEnable" val="1.0"/>
+  <param uid="rvbSize" val="0.4946594536304474"/>
+  <param uid="rvbDecay" val="0.1002822294831276"/>
+  <param uid="rvbMix" val="0.2246318310499191"/>
+</state>

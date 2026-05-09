@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<state name="PWM" author="Wee Noise Makers" tags="">
+  <state wt1="Analog Classic" wt2="Analog Classic" wt1Size="-1" wt2Size="-1"
+         wt1Data="0." wt2Data="0." pd1Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMC4yNTAwMDA5NTM2NzQzMTY0IiBleD0iMC4wIiBleT0iMC4yNTAwMDA5NTM2NzQzMTY0Ii8+DQogIDxyYW5nZSBzeD0iMC4wNTAwMDAwMTE5MjA5Mjg5NiIgc3k9IjAuNzYwMDAxMTgyNTU2MTUyMyIgZXg9IjAuMDUwMDAwMDExOTIwOTI4OTYiDQogICAgICAgICBleT0iMC43NjAwMDExODI1NTYxNTIzIi8+DQogIDxyYW5nZSBzeD0iMC45NDk5OTk5ODgwNzkwNzEiIHN5PSIwLjc2MDAwMTE4MjU1NjE1MjMiIGV4PSIwLjI1IiBleT0iMC43NjAwMDExODI1NTYxNTIzIi8+DQogIDxyYW5nZSBzeD0iMC45NDk5OTk5ODgwNzkwNzEiIHN5PSIwLjk5MDAwMDcyNDc5MjQ4MDUiIGV4PSIwLjI1IiBleT0iMS4xOTk5OTk4MDkyNjUxMzciLz4NCiAgPHJhbmdlIHN4PSIxLjAiIHN5PSIxLjI0MDAwMDcyNDc5MjQ4IiBleD0iMS4wIiBleT0iMS4yNDAwMDA3MjQ3OTI0OCIvPg0KPC9wZGN1cnZlPg0K"
+         pd2Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMC4yNTAwMDA5NTM2NzQzMTY0IiBleD0iMC4wIiBleT0iMC4yNTAwMDA5NTM2NzQzMTY0Ii8+DQogIDxyYW5nZSBzeD0iMC4wODAwMDAwNDI5MTUzNDQyNCIgc3k9IjAuNzUiIGV4PSIwLjA2OTk5OTk5Mjg0NzQ0MjYzIiBleT0iMC43NjAwMDExODI1NTYxNTIzIi8+DQogIDxyYW5nZSBzeD0iMC45NDk5OTk5ODgwNzkwNzEiIHN5PSIwLjc1IiBleD0iMC4yNSIgZXk9IjAuNzYwMDAxMTgyNTU2MTUyMyIvPg0KICA8cmFuZ2Ugc3g9IjAuOTQ5OTk5OTg4MDc5MDcxIiBzeT0iMS4wIiBleD0iMC4yNSIgZXk9IjEuMTk5OTk5ODA5MjY1MTM3Ii8+DQogIDxyYW5nZSBzeD0iMS4wIiBzeT0iMS4yNSIgZXg9IjEuMCIgZXk9IjEuMjUiLz4NCjwvcGRjdXJ2ZT4NCg=="
+         pdgain1Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMS4wIiBleD0iMC4wIiBleT0iMS4wIi8+DQogIDxyYW5nZSBzeD0iMS4wIiBzeT0iMS4wIiBleD0iMS4wIiBleT0iMS4wIi8+DQo8L3BkY3VydmU+DQo="
+         pdgain2Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMS4wIiBleD0iMC4wIiBleT0iMS4wIi8+DQogIDxyYW5nZSBzeD0iMS4wIiBzeT0iMS4wIiBleD0iMS4wIiBleT0iMS4wIi8+DQo8L3BkY3VydmU+DQo=">
+    <instance editorScale="1.0" browserOpen="0" selectedAuthors="Wee Noise Makers"
+              selectedTags="">
+      <MIDILEARN/>
+    </instance>
+    <MODMATRIX>
+      <MODITEM srcId="lfo1" depth="0.5013333559036255" enabled="1" dstId="osc1bend"
+               function="linear" biPolarMapping="1"/>
+      <MODITEM srcId="lfo1" depth="0.5013333559036255" enabled="1" dstId="osc2bend"
+               function="linear" biPolarMapping="1"/>
+    </MODMATRIX>
+  </state>
+  <param uid="osc1detune" val="0.3509873151779175"/>
+  <param uid="osc1spread" val="88.24821472167969"/>
+  <param uid="osc1bend" val="0.5"/>
+  <param uid="osc2enable" val="1.0"/>
+  <param uid="osc2tune" val="-12.0"/>
+  <param uid="osc2bend" val="0.4959999918937683"/>
+  <param uid="fltattack" val="0.09999998658895493"/>
+  <param uid="fltdecay" val="0.09999998658895493"/>
+  <param uid="fltrelease" val="0.09999998658895493"/>
+  <param uid="env1enable" val="1.0"/>
+  <param uid="env1attack" val="4.439157962799072"/>
+  <param uid="env1decay" val="5.022501945495605"/>
+  <param uid="env1sustain" val="11.94029998779297"/>
+  <param uid="env1release" val="0.09999998658895493"/>
+  <param uid="env2attack" val="0.09999998658895493"/>
+  <param uid="env2decay" val="0.09999998658895493"/>
+  <param uid="env2release" val="0.09999998658895493"/>
+  <param uid="env3attack" val="0.09999998658895493"/>
+  <param uid="env3decay" val="0.09999998658895493"/>
+  <param uid="env3release" val="0.09999998658895493"/>
+  <param uid="lfo1enable" val="1.0"/>
+  <param uid="lfo1sync" val="1.0"/>
+  <param uid="lfo1wave" val="2.0"/>
+  <param uid="lfo1rate" val="1.738123178482056"/>
+  <param uid="lfo1beat" val="10.0"/>
+  <param uid="attack" val="0.09999998658895493"/>
+  <param uid="decay" val="0.09999998658895493"/>
+  <param uid="release" val="0.09999998658895493"/>
+  <param uid="mpe" val="1.0"/>
+  <param uid="uiMOD" val="1.0"/>
+  <param uid="dlEnable" val="1.0"/>
+  <param uid="rvEnable" val="1.0"/>
+  <param uid="rvbSize" val="0.4946594536304474"/>
+  <param uid="rvbDecay" val="0.1002822294831276"/>
+  <param uid="rvbMix" val="0.2246318310499191"/>
+</state>

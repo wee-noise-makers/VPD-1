@@ -1,0 +1,128 @@
+#include "PluginProcessor.h"
+#include "PluginEditor.h"
+
+//==============================================================================
+WavetableAudioProcessorEditor::WavetableAudioProcessorEditor (WavetableAudioProcessor& p)
+    : ProcessorEditor (p), wtProc (p), 
+      mpeKeyboard (p.getMpeInstrument(), juce::MidiKeyboardComponent::horizontalKeyboard)
+{
+    const auto mainColor = juce::Colour(46, 125, 50);
+    const auto complementaryColor = juce::Colour(125, 46, 121);
+    getLookAndFeel().setColour(gin::PluginLookAndFeel::accentColourId, mainColor);
+    getLookAndFeel().setColour(juce::Slider::rotarySliderFillColourId, complementaryColor);
+
+    getLookAndFeel().setColour(juce::Slider::backgroundColourId, complementaryColor);
+    getLookAndFeel().setColour(juce::Slider::thumbColourId, complementaryColor);
+
+    // That's the color of the knob
+    // getLookAndFeel().setColour(juce::Slider::trackColourId, complementaryColor);
+
+    getLookAndFeel().setColour(juce::TextButton::buttonOnColourId, mainColor);
+    getLookAndFeel().setColour(juce::TextButton::textColourOnId, mainColor);
+
+    getLookAndFeel().setColour(juce::ComboBox::textColourId, mainColor);
+    getLookAndFeel().setColour(juce::PopupMenu::highlightedBackgroundColourId, mainColor);
+
+    scope.setName ("scope");
+    scope.setNumChannels (2);
+    scope.setTriggerMode (gin::TriggeredScope::TriggerMode::Up);
+    scope.setColour (gin::TriggeredScope::traceColourId + 0, findColour(gin::PluginLookAndFeel::accentColourId, true).withAlpha (0.7f));
+    scope.setColour (gin::TriggeredScope::traceColourId + 1, findColour(gin::PluginLookAndFeel::accentColourId, true).withAlpha (0.7f));
+    scope.setColour (gin::TriggeredScope::lineColourId, juce::Colours::transparentBlack);
+
+    addAndMakeVisible (editor);
+    addAndMakeVisible (scope);
+    
+    usage.panic.onClick = [this]
+    {
+        wtProc.presetLoaded = true;
+    };
+    addAndMakeVisible (usage);
+    
+    addChildComponent (modOverview);
+    addAndMakeVisible (modOverlay);
+
+    addAndMakeVisible (mpeKeyboard);
+
+    usage.setBounds (45, 12, 80 * 2, 16);
+    modOverview.setBounds (usage.getRight() + 10, 12, 150, 16);
+    scope.setBounds (704, 5, 187, 30);
+
+    setSize (943 + 163 - 168, 671 + 40);
+}
+
+WavetableAudioProcessorEditor::~WavetableAudioProcessorEditor()
+{
+}
+
+//==============================================================================
+void WavetableAudioProcessorEditor::showAboutInfo()
+{
+   #if JUCE_DEBUG
+    if (inspector == nullptr)
+    {
+        inspector = std::make_unique<melatonin::Inspector> (*this);
+        inspector->setVisible(true);
+    }
+    else
+    {
+        inspector = nullptr;
+    }
+   #else
+    ProcessorEditor::showAboutInfo();
+   #endif
+}
+
+void WavetableAudioProcessorEditor::paint (juce::Graphics& g)
+{
+    ProcessorEditor::paint (g);
+
+    titleBar.setShowBrowser (true);
+
+    g.fillAll (findColour (gin::PluginLookAndFeel::blackColourId));
+}
+
+void WavetableAudioProcessorEditor::resized()
+{
+    ProcessorEditor::resized ();
+
+    auto rc = getLocalBounds().reduced (1);
+    rc.removeFromTop (40);
+
+    mpeKeyboard.setBounds(rc.removeFromBottom (40));
+
+    editor.setBounds (rc);
+    patchBrowser.setBounds (rc);
+    modOverlay.setBounds (getLocalBounds());
+}
+
+void WavetableAudioProcessorEditor::addMenuItems (juce::PopupMenu& m)
+{
+    m.addSeparator();
+    m.addItem ("MPE", true, wtProc.globalParams.mpe->getUserValueBool(), [this]
+    {
+        wtProc.globalParams.mpe->setUserValue (wtProc.globalParams.mpe->getUserValueBool() ? 0.0f : 1.0f);
+
+		if (auto props = wtProc.getSettings())
+			props->setValue ("mpe", wtProc.globalParams.mpe->getUserValueBool());
+    });
+
+    auto setSize = [this] (float scale)
+    {
+        if (auto p = findParentComponentOfClass<gin::ScaledPluginEditor>())
+            p->setScale (scale);
+    };
+
+    juce::PopupMenu um;
+    um.addItem ("50%",  [setSize] { setSize (0.50f); });
+    um.addItem ("75%",  [setSize] { setSize (0.75f); });
+    um.addItem ("100%", [setSize] { setSize (1.00f); });
+    um.addItem ("150%", [setSize] { setSize (1.50f); });
+    um.addItem ("200%", [setSize] { setSize (2.00f); });
+
+    m.addSubMenu ("UI Size", um);
+
+    m.addSeparator();
+
+    // m.addItem ("Manual", [] { juce::URL ("https://github.com/FigBug/Wavetable/blob/master/Manual.md").launchInDefaultBrowser(); });
+}
