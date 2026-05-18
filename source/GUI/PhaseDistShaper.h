@@ -470,12 +470,13 @@ namespace GUI
         }
 
         void paintWaveform(juce::Graphics& g) {
+            const auto position = isEnabled() ? params.position : 0.f; 
             if ( ! vertical && bllt != nullptr &&  bllt->size() > 0) {
 
                 juce::Path wavePath; 
                 bool start = true;
 
-                const float pos = float (bllt->size()) * params.position;
+                const float pos = float (bllt->size()) * position;
                 const auto index1 = std::min (bllt->size() - 1, static_cast<int> (pos));
                 const auto index2 = std::min (bllt->size() - 1, index1 + 1);
                 const auto frac = pos - static_cast<float>(index1);
@@ -572,6 +573,10 @@ namespace GUI
 
             paintWaveform(g);
 
+            if ( ! isEnabled()) {
+                return;
+            }
+
             //  Curve
             const float distAmount = params.bend;
             juce::Path mainPath;                                 
@@ -583,9 +588,13 @@ namespace GUI
                 const auto E = curveToGui(range.end);
                 const auto C = curveToGui(current);
 
-                juce::ColourGradient grad (juce::Colours::green.darker(0.2), S.toFloat(),
-                                           juce::Colours::green.brighter(0.5), E.toFloat(), 
-                                           false);
+                juce::ColourGradient grad 
+                 (juce::Colours::green.darker(0.2f),
+                  S.toFloat(),
+                  juce::Colours::green.brighter(0.5f),
+                  E.toFloat(), 
+                  false);
+                
                 g.setGradientFill(grad);
                 g.drawDashedLine(juce::Line<float>(S.toFloat(), E.toFloat()), dotPattern, 2, 2.0);
 
@@ -596,7 +605,6 @@ namespace GUI
                 }
 
             }
-            g.setColour(juce::Colours::red);
             g.setColour (findColour (gin::WavetableComponent::activeWaveColourId, true).withMultipliedAlpha (isEnabled() ? 1.0f : 0.5f));
 
             g.strokePath(mainPath, juce::PathStrokeType(2.0));            

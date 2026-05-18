@@ -28,6 +28,8 @@ public:
     void paint (juce::Graphics& g) override;
     void resized() override;
 
+    void enablementChanged() override;
+    
     void setParams (PhaseDistOscillator::Params params);
     void setWavetables (gin::Wavetable*);
     void setPhaseDistortion (InterpPhaseDistortion*);

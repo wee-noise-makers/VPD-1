@@ -46,6 +46,11 @@ void MyWavetableComponent::resized()
     repaint();
 }
 
+void MyWavetableComponent::enablementChanged() {
+    needsUpdate = true;
+    repaint();
+}
+
 void MyWavetableComponent::setWavetables (gin::Wavetable* bllt_)
 {
     bllt = bllt_;
@@ -141,6 +146,7 @@ juce::Path MyWavetableComponent::createWavetablePathB (float wtPos, float start,
         auto p = params;
 
         p.position = wtPos;
+        p.bend = isEnabled() ? params.bend : 0.f;
 
         osc.setBlockDC (false);
         osc.setSampleRate (44100.0);
@@ -184,6 +190,7 @@ juce::Path MyWavetableComponent::createWavetablePathA (float wtPos, float start,
         auto note = gin::getMidiNoteFromHertz (hz);
         auto p = params;
 
+        p.bend = isEnabled() ? params.bend : 0.f;
         p.position = wtPos;
 
         osc.setSampleRate (44100.0);
