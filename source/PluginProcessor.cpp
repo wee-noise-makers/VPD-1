@@ -4,6 +4,7 @@
 #include "PluginEditor.h"
 #include "WavetableVoice.h"
 
+
 static juce::String subTextFunction (const gin::Parameter&, float v)
 {
     switch (int (v))
@@ -364,7 +365,7 @@ void WavetableAudioProcessor::GrindAmpParams::setup (WavetableAudioProcessor& p)
 #if 0
 void convertWavetables()
 {
-    auto src = juce::File (__FILE__).getChildFile ("../../assets/Wavetables");
+    auto src = juce::File (__FILE__).getChildFile ("../../Wavetables-src");
     if (! src.isDirectory())
         return;
 

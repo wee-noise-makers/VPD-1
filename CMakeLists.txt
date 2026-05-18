@@ -78,7 +78,7 @@ juce_add_plugin("${PROJECT_NAME}"
     # Change me!
     # A four-character plugin id
     # First character MUST be uppercase for AU formats
-    PLUGIN_MANUFACTURER_CODE Pamp
+    PLUGIN_MANUFACTURER_CODE Wnma
 
     # Change me!
     # A unique four-character plugin id
@@ -103,7 +103,7 @@ add_library(SharedCode INTERFACE)
 
 clap_juce_extensions_plugin(TARGET "${PROJECT_NAME}"
     CLAP_ID "${BUNDLE_ID}"
-    CLAP_FEATURES audio-effect)
+    CLAP_FEATURES instrument synthesizer)
 
 # Enable fast math, C++20 and a few other target defaults
 include(SharedCodeDefaults)
@@ -131,6 +131,20 @@ target_compile_definitions(SharedCode
     JUCE_WEB_BROWSER=0  # If you set this to 1, add `NEEDS_WEB_BROWSER TRUE` to the `juce_add_plugin` call
     JUCE_USE_CURL=0     # If you set this to 1, add `NEEDS_CURL TRUE` to the `juce_add_plugin` call
     JUCE_VST3_CAN_REPLACE_VST2=0
+
+    # From Wavetabkes 
+    #JUCE_USE_CUSTOM_PLUGIN_STANDALONE_APP=1
+    JUCE_COREGRAPHICS_DRAW_ASYNC=1
+	JUCE_MODAL_LOOPS_PERMITTED=0
+	JUCE_WEB_BROWSER=0
+	JUCE_USE_FLAC=1
+	#JUCE_USE_CURL=1
+	JUCE_USE_MP3AUDIOFORMAT=0
+	JUCE_USE_LAME_AUDIO_FORMAT=0
+	JUCE_USE_WINDOWS_MEDIA_FORMAT=0
+	JUCE_SILENCE_XCODE_15_LINKER_WARNING=1
+	JUCE_IGNORE_VST3_MISMATCHED_PARAMETER_ID_WARNING=1
+	_CRT_SECURE_NO_WARNINGS
 
     # Uncomment if you are paying for a an Indie/Pro license or releasing under GPLv3
     # JUCE_DISPLAY_SPLASH_SCREEN=0
