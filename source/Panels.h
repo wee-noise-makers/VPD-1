@@ -6,6 +6,89 @@
 #include "GUI/PhaseDistShaper.h"
 #include "GUI/my_wavetablecomponent.h"
 
+class MyADSRComponent : public gin::ADSRComponent
+{
+    public:
+
+    // void paint (juce::Graphics& g) override 
+    // {
+    //     auto c = findColour (gin::GinLookAndFeel::accentColourId).withAlpha (0.7f);
+
+    //     auto a = getArea();
+    //     auto p1 = juce::Point<float> (float (a.getX()), float (a.getBottom()));
+    //     auto p2 = getHandlePos (gin::ADSRComponent::Handle::attack).toFloat();
+    //     auto p3 = getHandlePos (gin::ADSRComponent::Handle::decaySustain).toFloat();
+    //     auto p4 = getHandlePos (gin::ADSRComponent::Handle::release).toFloat();
+
+    // // Draw curve
+    // {
+    //     juce::Path p;
+
+    //     p.startNewSubPath (p1);
+    //     p.lineTo (p2);
+    //     p.lineTo (p3);
+    //     p.lineTo (p4);
+
+    //     g.setColour (dimIfNeeded (c));
+    //     g.strokePath (p, juce::PathStrokeType (2));
+    // }
+
+    // // Draw handles
+    // {
+    //     juce::Colour back = juce::Colours::black;
+
+    //     g.setColour (back);
+    //     g.fillEllipse (getHandleRect (gin::ADSRComponent::Handle::attack).toFloat());
+    //     g.fillEllipse (getHandleRect (gin::ADSRComponent::Handle::decaySustain).toFloat());
+    //     g.fillEllipse (getHandleRect (gin::ADSRComponent::Handle::release).toFloat());
+
+    //     auto h = findColour (gin::GinLookAndFeel::whiteColourId).withAlpha (0.9f);
+    //     g.setColour (dimIfNeeded (h));
+
+    //     g.drawEllipse (getHandleRect (gin::ADSRComponent::Handle::attack).toFloat(), 0.75f);
+    //     g.drawEllipse (getHandleRect (gin::ADSRComponent::Handle::decaySustain).toFloat(), 0.75f);
+    //     g.drawEllipse (getHandleRect (gin::ADSRComponent::Handle::release).toFloat(), 0.75f);
+    // }
+
+    // // Draw dots
+    // {
+    //     auto l1 = juce::Line<float> (p1, p2);
+    //     auto l2 = juce::Line<float> (p2, p3);
+    //     auto l3 = juce::Line<float> (p3, p4);
+
+    //     for (auto dot : curPhases)
+    //     {
+    //         auto x = 0.0f;
+    //         auto y = (a.getHeight() * (1.0f - dot.second)) + a.getY();
+
+    //         if (dot.first == 0) // A
+    //         {
+    //             y = std::clamp (y, l1.getEndY(), l1.getStartY());
+    //             x = gin::getXForY (l1, y);
+    //         }
+    //         else if (dot.first == 1) // D
+    //         {
+    //             y = std::clamp (y, l2.getStartY(), l2.getEndY());
+    //             x = gin::getXForY (l2, y);
+    //         }
+    //         else if (dot.first == 2) // S
+    //         {
+    //             x = l3.getStartX();
+    //         }
+    //         else if (dot.first == 3) // R
+    //         {
+    //             y = std::clamp (y, l3.getStartY(), l3.getEndY());
+    //             x = gin::getXForY (l3, y);
+    //         }
+
+    //         g.setColour (dimIfNeeded (findColour (gin::GinLookAndFeel::whiteColourId).withAlpha (0.9f)));
+    //         g.fillEllipse (x - 2, y - 2, 1, 4);
+    //     }
+    // }
+
+    // }
+};
+
 //==============================================================================
 class OscillatorBox : public gin::ParamBox,
                       public juce::Value::Listener
@@ -251,7 +334,7 @@ public:
 
         auto& preset = proc.adsrParams;
 
-        adsr = new gin::ADSRComponent ();
+        adsr = new MyADSRComponent ();
         adsr->setParams (preset.attack, preset.decay, preset.sustain, preset.release);
         adsr->phaseCallback = [this]
         {
@@ -286,7 +369,7 @@ public:
 
     WavetableAudioProcessor& proc;
     gin::ParamComponent::Ptr a = nullptr, d = nullptr, s = nullptr, r = nullptr;
-    gin::ADSRComponent* adsr = nullptr;
+    MyADSRComponent* adsr = nullptr;
     gin::SVGPluginButton* retrig;
 };
 
@@ -314,7 +397,7 @@ public:
         addControl (new gin::Select (flt.type));
         addControl (v = new gin::Knob (flt.velocityTracking));
 
-        adsr = new gin::ADSRComponent ();
+        adsr = new MyADSRComponent ();
         adsr->setParams (flt.attack, flt.decay, flt.sustain, flt.release);
         adsr->phaseCallback = [this, &flt]
         {
@@ -374,7 +457,7 @@ public:
 
     WavetableAudioProcessor& proc;
     gin::ParamComponent::Ptr v  = nullptr, a = nullptr, d = nullptr, s = nullptr, r = nullptr;
-    gin::ADSRComponent* adsr = nullptr;
+    MyADSRComponent* adsr = nullptr;
     gin::SVGPluginButton* retrig = nullptr;
 
     juce::String asset1 = "M0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm236 35.2c-7.4-4.3-16.5-4.3-24-.1l-56 32c-11.5 6.6-15.5 21.2-8.9 32.7s21.2 15.5 32.7 8.9L200 193.4V336H160c-13.3 0-24 10.7-24 24s10.7 24 24 24h64 64c13.3 0 24-10.7 24-24s-10.7-24-24-24H248V152c0-8.6-4.6-16.5-12-20.8z";
@@ -474,7 +557,7 @@ public:
         addControl (new gin::Knob (env.sustain), 2, 1);
         addControl (new gin::Knob (env.release), 3, 1);
 
-        auto g = new gin::ADSRComponent();
+        auto g = new MyADSRComponent();
         g->setParams (env.attack, env.decay, env.sustain, env.release);
         g->phaseCallback = [this, &env]
         {
@@ -507,50 +590,6 @@ public:
     WavetableAudioProcessor& proc;
     gin::SVGPluginButton* retrig = nullptr;
     int idx;
-};
-
-//==============================================================================
-class StepBox : public gin::ParamBox
-{
-public:
-    StepBox (const juce::String& name, WavetableAudioProcessor& proc_)
-        : gin::ParamBox (name), proc (proc_)
-    {
-        setName ("step");
-
-        auto& prs = proc.stepLfoParams;
-
-        addEnable (prs.enable);
-
-        addModSource (new gin::ModulationSourceButton (proc.modMatrix, proc.modSrcStep, true));
-        addModSource (new gin::ModulationSourceButton (proc.modMatrix, proc.modSrcMonoStep, false));
-
-        addControl (new gin::Select (prs.beat), 0, 1);
-        addControl (new gin::Knob (prs.length), 1, 1);
-
-        auto g = new gin::StepLFOComponent (Cfg::numStepLFOSteps);
-        g->phaseCallback = [this, &prs]
-        {
-            std::vector<float> res;
-
-            if (prs.enable->isOn())
-            {
-                res.push_back (proc.modStepLFO.getCurrentPhase());
-                
-                for (auto v : proc.getActiveVoices())
-                    if (auto wtv = dynamic_cast<WavetableVoice*> (v))
-                        res.push_back (wtv->modStepLFO.getCurrentPhase());
-            }
-
-            return res;
-        };
-        g->setParams (prs.beat, prs.length, prs.level, prs.enable);
-        addControl (g, 0, 0, 4, 1);
-
-        addControl (new gin::SVGPluginButton (prs.retrig, gin::Assets::retrigger));
-    }
-
-    WavetableAudioProcessor& proc;
 };
 
 //==============================================================================

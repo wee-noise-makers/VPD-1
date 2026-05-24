@@ -9,7 +9,6 @@ Editor::Editor (WavetableAudioProcessor& proc_)
 
     addAndMakeVisible (adsr);
     addAndMakeVisible (filter);
-    addAndMakeVisible (step);
     addAndMakeVisible (mod);
     addAndMakeVisible (mtx);
     addAndMakeVisible (global);

@@ -455,6 +455,224 @@ void extractWavetables()
 }
 #endif
 
+class MyLookAndFeel : public gin::CopperLookAndFeel {
+public:
+
+    MyLookAndFeel()
+      : gin::CopperLookAndFeel::CopperLookAndFeel()
+    {
+        const auto mainColor = juce::Colour(46, 125, 50);
+        const auto complementaryColor = juce::Colour(125, 46, 121);
+
+        setColour(gin::PluginLookAndFeel::accentColourId, mainColor);
+        setColour(juce::Slider::rotarySliderFillColourId, complementaryColor);
+
+        // Param boxes header
+        setColour(gin::PluginLookAndFeel::title1ColourId, juce::Colour(26, 28, 30));
+        setColour(gin::PluginLookAndFeel::title2ColourId, juce::Colour(26, 28, 30).brighter(0.01f));
+
+        // Param boxes background
+        setColour(gin::PluginLookAndFeel::matte1ColourId, juce::Colour(19, 20, 22));
+        setColour(gin::PluginLookAndFeel::matte2ColourId, juce::Colour(19, 20, 22));
+
+        // setColour(gin::PluginLookAndFeel::whiteColourId, juce::Colours::black);
+
+        setColour(juce::Slider::backgroundColourId, complementaryColor);
+        setColour(juce::Slider::thumbColourId, complementaryColor);
+
+        // That's the color of the knob
+        // setColour(juce::Slider::trackColourId, complementaryColor);
+
+        setColour(juce::TextButton::buttonOnColourId, mainColor);
+        setColour(juce::TextButton::textColourOnId, mainColor);
+
+        setColour(juce::ComboBox::textColourId, mainColor);
+        setColour(juce::PopupMenu::highlightedBackgroundColourId, mainColor);
+
+        myTypeface = juce::Typeface::createSystemTypefaceFor
+            (BinaryData::ZeroesOne_ttf,
+             BinaryData::ZeroesOne_ttfSize);
+
+        labelTypeface = juce::Typeface::createSystemTypefaceFor
+            (gin::Resources::InterRegular_otf,
+             gin::Resources::InterRegular_otfSize);
+
+        juce::LookAndFeel_V4::getDefaultLookAndFeel().setDefaultSansSerifTypeface(myTypeface);
+    }
+
+    juce::Font getLabelFont (juce::Label&) override {
+        auto font = juce::Font (juce::FontOptions (labelTypeface));
+        font.setHeight(9);
+        return font;
+    }
+
+    juce::Font getMenuBarFont (juce::MenuBarComponent& menuBar, 
+                               int /*itemIndex*/, 
+                               const juce::String& /*itemText*/)  override
+    {
+        auto font = juce::Font (juce::FontOptions (labelTypeface));
+        font.setHeight((float) menuBar.getHeight() * 0.7f);
+        return font;
+    }
+
+    juce::Font getTextButtonFont (juce::TextButton&, int buttonHeight) override
+    {
+        auto font = juce::Font (juce::FontOptions (labelTypeface));
+        font.setHeight( juce::jmin (16.0f, (float) buttonHeight * 0.6f) );
+        return font;
+    }
+
+    juce::Font getComboBoxFont (juce::ComboBox& box) override {
+        auto font = juce::Font (juce::FontOptions (labelTypeface));
+        font.setHeight( juce::jmin (16.0f, (float) box.getHeight() * 0.85f) );
+        return font;
+    }
+
+    juce::Font getPopupMenuFont () override {
+        auto font = juce::Font (juce::FontOptions (labelTypeface));
+        font.setHeight(17);
+        return font;
+    }
+
+
+    void drawRotarySlider (juce::Graphics& g, int x, int y, int width, int height, float sliderPos,
+                           const float rotaryStartAngleIn, const float rotaryEndAngle, juce::Slider& slider)
+                           override
+    {
+        float rotaryStartAngle = rotaryStartAngleIn;
+        const float radius = juce::jmin (width / 2, height / 2) - 4.0f;
+        const float centreX = x + width * 0.5f;
+        const float centreY = y + height * 0.5f;
+        const float rx = centreX - radius;
+        const float ry = centreY - radius;
+        const float rw = radius * 2.0f;
+        const float angle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
+        const bool isMouseOver = slider.isMouseOverOrDragging() && slider.isEnabled();
+    
+        const float thickness = (radius - 2.f) / radius;
+    
+        const auto color = slider.findColour (juce::Slider::trackColourId, true).withMultipliedAlpha (slider.isEnabled() ? 1.0f : 0.5f);
+        const auto highlightColor = slider.findColour (juce::Slider::rotarySliderFillColourId, true).withAlpha (isMouseOver ? 0.95f : 0.85f);
+        // Draw knob
+        {
+            const auto pi = juce::MathConstants<float>::pi;
+            const auto rcO = juce::Rectangle<float> (rx, ry, rw, rw).withSizeKeepingCentre (radius, radius);
+            const auto rcT = juce::Rectangle<float> (rx, ry, rw, rw).withSizeKeepingCentre (radius * 0.85f, radius * 0.85f);
+            const auto rcI = juce::Rectangle<float> (rx, ry, rw, rw).withSizeKeepingCentre (radius * 0.09f, radius * 0.09f);
+            const auto c = 2.0f * pi * radius;
+            const auto gap = (rcI.getWidth () / c) * 2.0f * pi;
+    
+            juce::ColourGradient grad 
+                 (color.darker(0.5f),
+                  rcO.getTopLeft(),
+                  color.brighter(0.5f),
+                  rcO.getBottomRight(), 
+                  false);
+            g.setGradientFill(grad);
+            g.fillEllipse(rcO);
+
+            // juce::Path tick;
+            // tick.addArc (rcT.getX(), rcT.getY(), rcT.getWidth(), rcT.getHeight(), angle + gap, angle - gap, true );
+            // tick.addArc (rcI.getX(), rcI.getY(), rcI.getWidth(), rcI.getHeight(), angle - pi / 2, angle + pi / 2, false );
+            // tick.closeSubPath();
+        
+            const auto tickH = radius * 0.35f;
+            const auto tickW = tickH / 4;
+            juce::Rectangle<float> r = juce::Rectangle<float>
+              (-tickW / 2.0f, radius * 0.1f, tickW, tickH);
+            juce::AffineTransform t = 
+              juce::AffineTransform::rotation(angle - pi).translated(centreX, centreY);
+            juce::Path tick;
+            tick.addRoundedRectangle (r, tickW / 3);            
+
+            if (slider.isEnabled()) {
+                g.setColour (highlightColor);
+            } else {
+                g.setColour(color);
+            }
+            g.fillPath (tick, t);
+        }
+    
+        {
+            juce::Path filledArc;
+            filledArc.addPieSegment (rx, ry, rw, rw, rotaryStartAngle, rotaryEndAngle, thickness);
+            g.setColour (color);
+            g.fillPath (filledArc);
+        }
+    
+        if (slider.isEnabled())
+            g.setColour (highlightColor);
+    
+        auto fillStartAngle = rotaryStartAngle;
+        if (slider.getProperties().contains ("fromCentre"))
+            fillStartAngle = (rotaryStartAngle + rotaryEndAngle) / 2;
+    
+        {
+            juce::Path filledArc;
+            filledArc.addPieSegment (rx, ry, rw, rw, fillStartAngle, angle, thickness);
+            // melatonin::DropShadow (juce::Colours::red, 8).render(g, filledArc);
+            g.fillPath (filledArc);
+        }
+    
+        if (slider.getProperties().contains ("modDepth"))
+        {
+            auto depth = (float)slider.getProperties()["modDepth"];
+            bool bipolar = (bool)slider.getProperties()["modBipolar"];
+    
+            g.setColour (slider.findColour (GinLookAndFeel::whiteColourId, true).withAlpha (0.9f));
+    
+            juce::Path filledArc;
+            if (bipolar)
+            {
+                auto a = juce::jlimit (rotaryStartAngle, rotaryEndAngle, angle - depth * (rotaryEndAngle - rotaryStartAngle));
+                auto b = juce::jlimit (rotaryStartAngle, rotaryEndAngle, angle + depth * (rotaryEndAngle - rotaryStartAngle));
+                filledArc.addPieSegment (rx, ry, rw, rw, std::min (a, b), std::max (a, b), thickness);
+            }
+            else
+            {
+                auto modPos = juce::jlimit (rotaryStartAngle, rotaryEndAngle, angle + depth * (rotaryEndAngle - rotaryStartAngle));
+                filledArc.addPieSegment (rx, ry, rw, rw, angle, modPos, thickness);
+            }
+    
+            g.fillPath (filledArc);
+        }
+    
+        if (slider.getProperties().contains ("modValues") && slider.isEnabled())
+        {
+            g.setColour (slider.findColour (GinLookAndFeel::whiteColourId, true).withAlpha (0.9f));
+    
+            auto varArray = slider.getProperties()["modValues"];
+            if (varArray.isArray())
+            {
+                for (auto value : *varArray.getArray())
+                {
+                    float modAngle = float (value) * (rotaryEndAngle - rotaryStartAngle) + rotaryStartAngle;
+    
+                    float modX = centreX + std::sin (modAngle) * radius;
+                    float modY = centreY - std::cos (modAngle) * radius;
+                    g.fillEllipse (modX - 2, modY - 2, 4.0f, 4.0f);
+
+                    // const auto tickH = thickness * 2.f;
+                    // const auto tickW = 1.f;
+                    // juce::Rectangle<float> r = juce::Rectangle<float>
+                    //   (-tickW / 2.0f, radius - thickness * 2.f, tickW, tickH);
+                    // juce::AffineTransform t = 
+                    //   juce::AffineTransform::rotation(modAngle - juce::MathConstants<float>::pi).translated(centreX, centreY);
+                    // juce::Path tick;
+                    // tick.addRectangle (r);
+                    // g.fillPath (tick, t);
+
+                }
+            }
+        }
+    }
+    
+    
+private:
+    juce::Typeface::Ptr myTypeface;
+    juce::Typeface::Ptr labelTypeface;
+};
+
 //==============================================================================
 static gin::ProcessorOptions createProcessorOptions()
 {
@@ -471,6 +689,8 @@ static gin::ProcessorOptions createProcessorOptions()
     opts.programmingCredits.add("https://socalabs.com/synths/wavetable/");
     opts.programmingCredits.add("");
     opts.programmingCredits.add("Wee Noise Makers");
+
+    opts.lookAndFeel = std::make_unique<MyLookAndFeel>();
 
     return opts;
 }

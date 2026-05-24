@@ -6,23 +6,6 @@ WavetableAudioProcessorEditor::WavetableAudioProcessorEditor (WavetableAudioProc
     : ProcessorEditor (p), wtProc (p), 
       mpeKeyboard (p.getMpeInstrument(), juce::MidiKeyboardComponent::horizontalKeyboard)
 {
-    const auto mainColor = juce::Colour(46, 125, 50);
-    const auto complementaryColor = juce::Colour(125, 46, 121);
-    getLookAndFeel().setColour(gin::PluginLookAndFeel::accentColourId, mainColor);
-    getLookAndFeel().setColour(juce::Slider::rotarySliderFillColourId, complementaryColor);
-
-    getLookAndFeel().setColour(juce::Slider::backgroundColourId, complementaryColor);
-    getLookAndFeel().setColour(juce::Slider::thumbColourId, complementaryColor);
-
-    // That's the color of the knob
-    // getLookAndFeel().setColour(juce::Slider::trackColourId, complementaryColor);
-
-    getLookAndFeel().setColour(juce::TextButton::buttonOnColourId, mainColor);
-    getLookAndFeel().setColour(juce::TextButton::textColourOnId, mainColor);
-
-    getLookAndFeel().setColour(juce::ComboBox::textColourId, mainColor);
-    getLookAndFeel().setColour(juce::PopupMenu::highlightedBackgroundColourId, mainColor);
-
     scope.setName ("scope");
     scope.setNumChannels (2);
     scope.setTriggerMode (gin::TriggeredScope::TriggerMode::Up);
