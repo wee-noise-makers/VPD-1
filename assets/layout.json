@@ -16,7 +16,8 @@
                 { "id": "Oversampling", "x": "prevR", "y": "prevY", "w": 56, "h": 70 },
                 { "id": "shaper", "x": "prevR+10", "y": "23", "w": "parW/2.5", "b": "parH" },
                 { "id": "wt", "x": "prevR", "y": 23, "r": "parW", "b": "parH" },
-                { "id": "add", "r": "parW - 8", "b": "parH - 8", "w": 16, "h": 16 }
+                { "id": "add", "r": "parW - 8", "b": "parH - 8", "w": 16, "h": 16 },
+                { "id": "reset", "r": "getR('shaper') - 34", "b": "parH", "w": 16, "h": 16 }
             ]
         },
         { "id": "adsr", "x": "0", "y": "getB('osc2')+1", "w": "215", "h": 163, "components":

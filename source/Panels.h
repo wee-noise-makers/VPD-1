@@ -72,6 +72,14 @@ public:
             } );
         };
 
+        auto resetButton = new gin::SVGButton ("reset", gin::Assets::redo);
+        addControl (resetButton);
+        resetButton->onClick = [this]
+        {
+            this->proc.phaseDistCurves[this->idx].reset();
+            this->proc.gainCurves[this->idx].reset();
+        };
+
         timer.startTimerHz (60);
         timer.onTimer = [this]
         {
