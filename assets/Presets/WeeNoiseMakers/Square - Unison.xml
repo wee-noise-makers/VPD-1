@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <state name="Square - Unison" author="Wee Noise Makers" tags="">
-  <state wt1="Analog Classic" wt2="Analog Classic" wt1Size="-1" wt2Size="-1"
-         wt1Data="0." wt2Data="0." pd1Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMC4yNTAwMDA5NTM2NzQzMTY0IiBleD0iMC4wIiBleT0iMC4yNTAwMDA5NTM2NzQzMTY0Ii8+DQogIDxyYW5nZSBzeD0iMC41IiBzeT0iMC43NSIgZXg9IjAuMDQwMDAwMDIxNDU3NjcyMTIiIGV5PSIwLjc1Ii8+DQogIDxyYW5nZSBzeD0iMC41MDk5OTk5OTA0NjMyNTY4IiBzeT0iMC43NSIgZXg9IjAuOTcwMDAwMDI4NjEwMjI5NSIgZXk9IjAuNzUiLz4NCiAgPHJhbmdlIHN4PSIxLjAiIHN5PSIxLjI0MDAwMDcyNDc5MjQ4IiBleD0iMS4wIiBleT0iMS4yNDAwMDA3MjQ3OTI0OCIvPg0KPC9wZGN1cnZlPg0K"
+  <state wt1="FM 01" wt2="Analog Classic" wt1Size="-1" wt2Size="-1" wt1Data="0."
+         wt2Data="0." pd1Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iLTAuMTA5OTk5NjU2Njc3MjQ2MSIgZXg9IjAuMCIgZXk9Ii0wLjEwOTk5OTY1NjY3NzI0NjEiLz4NCiAgPHJhbmdlIHN4PSIwLjUiIHN5PSIwLjM5MDAwMDM0MzMyMjc1MzkiIGV4PSIwLjA0MDAwMDAyMTQ1NzY3MjEyIiBleT0iMC4zOTAwMDAzNDMzMjI3NTM5Ii8+DQogIDxyYW5nZSBzeD0iMC41MDk5OTk5OTA0NjMyNTY4IiBzeT0iMC4zOTAwMDAzNDMzMjI3NTM5IiBleD0iMC45NzAwMDAwMjg2MTAyMjk1Ig0KICAgICAgICAgZXk9IjAuMzkwMDAwMzQzMzIyNzUzOSIvPg0KICA8cmFuZ2Ugc3g9IjEuMCIgc3k9IjAuOTEwMDAwODAxMDg2NDI1OCIgZXg9IjEuMCIgZXk9IjAuOTEwMDAwODAxMDg2NDI1OCIvPg0KPC9wZGN1cnZlPg0K"
          pd2Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMC4yNTAwMDA5NTM2NzQzMTY0IiBleD0iMC4wIiBleT0iMC4yNTAwMDA5NTM2NzQzMTY0Ii8+DQogIDxyYW5nZSBzeD0iMC41MTk5OTk5ODA5MjY1MTM3IiBzeT0iMC43NjAwMDExODI1NTYxNTIzIiBleD0iMC4wIiBleT0iMC43NjAwMDExODI1NTYxNTIzIi8+DQogIDxyYW5nZSBzeD0iMC41MTk5OTk5ODA5MjY1MTM3IiBzeT0iMC43NjAwMDExODI1NTYxNTIzIiBleD0iMC4yODAwMDAwMzA5OTQ0MTUzIg0KICAgICAgICAgZXk9IjAuNzYwMDAxMTgyNTU2MTUyMyIvPg0KICA8cmFuZ2Ugc3g9IjAuNzY5OTk5OTgwOTI2NTEzNyIgc3k9IjEuMDIwMDAwNDU3NzYzNjcyIiBleD0iMC4yODAwMDAwMzA5OTQ0MTUzIg0KICAgICAgICAgZXk9IjEuMjEwMDAwOTkxODIxMjg5Ii8+DQogIDxyYW5nZSBzeD0iMS4wIiBzeT0iMS4yNSIgZXg9IjEuMCIgZXk9IjEuMjUiLz4NCjwvcGRjdXJ2ZT4NCg=="
          pdgain1Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMS4wIiBleD0iMC4wIiBleT0iMS4wIi8+DQogIDxyYW5nZSBzeD0iMS4wIiBzeT0iMS4wIiBleD0iMS4wIiBleT0iMS4wIi8+DQo8L3BkY3VydmU+DQo="
          pdgain2Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMS4wIiBleD0iMC4wIiBleT0iMS4wIi8+DQogIDxyYW5nZSBzeD0iMS4wIiBzeT0iMS4wIiBleD0iMS4wIiBleT0iMS4wIi8+DQo8L3BkY3VydmU+DQo=">
-    <instance editorScale="1.0" browserOpen="0" selectedAuthors="Wee Noise Makers"
-              selectedTags="">
-      <MIDILEARN/>
-    </instance>
     <MODMATRIX>
+      <MODITEM srcId="cc1" depth="1.0" enabled="1" dstId="osc1pos" function="linear"
+               biPolarMapping="0"/>
       <MODITEM srcId="env1" depth="1.0" enabled="1" dstId="osc1bend" function="linear"
                biPolarMapping="0"/>
       <MODITEM srcId="env1" depth="1.0" enabled="1" dstId="osc2bend" function="linear"
@@ -40,8 +38,6 @@
   <param uid="decay" val="0.09999998658895493"/>
   <param uid="release" val="0.09999998658895493"/>
   <param uid="mpe" val="1.0"/>
-  <param uid="uiLFO" val="1.0"/>
-  <param uid="uiMOD" val="1.0"/>
   <param uid="dlEnable" val="1.0"/>
   <param uid="rvEnable" val="1.0"/>
   <param uid="rvbSize" val="0.4946594536304474"/>

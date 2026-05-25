@@ -143,10 +143,10 @@
                     [
                         { "id": "Size", "x": 0, "y": 23, "w": 42, "h": 57 },
                         { "id": "Decay", "x": "prevR", "y": "prevY", "w": 42, "h": 57 },
-                        { "id": "Lowpass", "x": "prevR", "y": "prevY", "w": 42, "h": 57 },
+                        { "id": "Mix", "x": "prevR", "y": "prevY", "w": 42, "h": 57 },
                         { "id": "Damping", "x": 0, "y": "prevB", "w": 42, "h": 57 },
                         { "id": "Predelay", "x": "prevR", "y": "prevY", "w": 42, "h": 57 },
-                        { "id": "Mix", "x": "prevR", "y": "prevY", "w": 42, "h": 57 }
+                        { "id": "Lowpass", "x": "prevR", "y": "prevY", "w": 42, "h": 57 }
                     ]
                 }
             ]

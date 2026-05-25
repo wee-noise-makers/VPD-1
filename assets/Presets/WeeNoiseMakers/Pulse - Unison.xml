@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <state name="Pulse - Unison" author="Wee Noise Makers" tags="">
-  <state wt1="Analog Classic" wt2="Analog Classic" wt1Size="-1" wt2Size="-1"
-         wt1Data="0." wt2Data="0." pd1Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMC4yNTAwMDA5NTM2NzQzMTY0IiBleD0iMC4wIiBleT0iMC4yNTAwMDA5NTM2NzQzMTY0Ii8+DQogIDxyYW5nZSBzeD0iMC45OTAwMDAwMDk1MzY3NDMyIiBzeT0iMS4yMjAwMDEyMjA3MDMxMjUiIGV4PSIwLjA2OTk5OTk5Mjg0NzQ0MjYzIg0KICAgICAgICAgZXk9IjEuMjEwMDAwOTkxODIxMjg5Ii8+DQogIDxyYW5nZSBzeD0iMS4wIiBzeT0iMS4yNDAwMDA3MjQ3OTI0OCIgZXg9IjEuMCIgZXk9IjEuMjQwMDAwNzI0NzkyNDgiLz4NCjwvcGRjdXJ2ZT4NCg=="
+  <state wt1="FM 01" wt2="Analog Classic" wt1Size="-1" wt2Size="-1" wt1Data="0."
+         wt2Data="0." pd1Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iLTAuMDk5OTk5NDI3Nzk1NDEwMTYiIGV4PSIwLjAiIGV5PSItMC4wOTk5OTk0Mjc3OTU0MTAxNiIvPg0KICA8cmFuZ2Ugc3g9IjEuMCIgc3k9IjAuODkwMDAxMjk2OTk3MDcwMyIgZXg9IjAuMDgwMDAwMDQyOTE1MzQ0MjQiIGV5PSIwLjg4MDAwMTA2ODExNTIzNDQiLz4NCiAgPHJhbmdlIHN4PSIxLjAiIHN5PSIwLjg5MDAwMTI5Njk5NzA3MDMiIGV4PSIxLjAiIGV5PSIwLjg5MDAwMTI5Njk5NzA3MDMiLz4NCjwvcGRjdXJ2ZT4NCg=="
          pd2Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMC4yNDAwMDA3MjQ3OTI0ODA1IiBleD0iMC4wIiBleT0iMC4yNDAwMDA3MjQ3OTI0ODA1Ii8+DQogIDxyYW5nZSBzeD0iMC45NDk5OTk5ODgwNzkwNzEiIHN5PSIxLjIzMDAwMDQ5NTkxMDY0NSIgZXg9IjAuMDQwMDAwMDIxNDU3NjcyMTIiDQogICAgICAgICBleT0iMS4yMjAwMDEyMjA3MDMxMjUiLz4NCiAgPHJhbmdlIHN4PSIxLjAiIHN5PSIxLjI2MDAwMDIyODg4MTgzNiIgZXg9IjEuMCIgZXk9IjEuMjUiLz4NCjwvcGRjdXJ2ZT4NCg=="
          pdgain1Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMS4wIiBleD0iMC4wIiBleT0iMS4wIi8+DQogIDxyYW5nZSBzeD0iMS4wIiBzeT0iMS4wIiBleD0iMS4wIiBleT0iMS4wIi8+DQo8L3BkY3VydmU+DQo="
          pdgain2Data="PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCg0KPHBkY3VydmU+DQogIDxyYW5nZSBzeD0iMC4wIiBzeT0iMS4wIiBleD0iMC4wIiBleT0iMS4wIi8+DQogIDxyYW5nZSBzeD0iMS4wIiBzeT0iMS4wIiBleD0iMS4wIiBleT0iMS4wIi8+DQo8L3BkY3VydmU+DQo=">
-    <instance editorScale="1.0" browserOpen="0" selectedAuthors="Wee Noise Makers"
-              selectedTags="">
-      <MIDILEARN/>
-    </instance>
     <MODMATRIX>
+      <MODITEM srcId="cc1" depth="1.0" enabled="1" dstId="osc1pos" function="linear"
+               biPolarMapping="0"/>
       <MODITEM srcId="env1" depth="1.0" enabled="1" dstId="osc1bend" function="linear"
                biPolarMapping="0"/>
       <MODITEM srcId="env1" depth="1.0" enabled="1" dstId="osc2bend" function="linear"
@@ -27,7 +25,7 @@
   <param uid="fltrelease" val="0.09999998658895493"/>
   <param uid="env1enable" val="1.0"/>
   <param uid="env1attack" val="1.913933038711548"/>
-  <param uid="env1decay" val="1.81779158115387"/>
+  <param uid="env1decay" val="1.817792057991028"/>
   <param uid="env1sustain" val="62.74029922485352"/>
   <param uid="env1release" val="0.09999998658895493"/>
   <param uid="env2attack" val="0.09999998658895493"/>
