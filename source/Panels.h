@@ -138,8 +138,18 @@ public:
         shaper->setWavetables(idx == 0 ? &proc.osc1Tables : &proc.osc2Tables);
         addControl (shaper);
 
+        auto resetButton = new gin::SVGButton ("reset", gin::Assets::redo);
+        resetButton->setDescription("Reset phase distortion curve");
+        addControl (resetButton);
+        resetButton->onClick = [this]
+        {
+            this->proc.phaseDistCurves[this->idx].reset();
+            this->proc.gainCurves[this->idx].reset();
+        };
+
         auto addButton = new gin::SVGButton ("add", gin::Assets::add);
         addControl (addButton);
+        addButton->setDescription("load wavetable");
         addButton->onClick = [this]
         {
             auto chooser = std::make_shared<juce::FileChooser> (juce::String ("Load Wavetable"), juce::File(), juce::String ("*.wav"));
@@ -155,14 +165,6 @@ public:
             } );
         };
 
-        auto resetButton = new gin::SVGButton ("reset", gin::Assets::redo);
-        addControl (resetButton);
-        resetButton->onClick = [this]
-        {
-            this->proc.phaseDistCurves[this->idx].reset();
-            this->proc.gainCurves[this->idx].reset();
-        };
-
         timer.startTimerHz (60);
         timer.onTimer = [this]
         {
@@ -176,6 +178,9 @@ public:
         h.addMouseListener (this, false);
         nextButton.onClick = [this] { proc.incWavetable (idx, +1); };
         prevButton.onClick = [this] { proc.incWavetable (idx, -1); };
+
+        nextButton.setDescription("Next wavetable");
+        prevButton.setDescription("Previous wavetable");
     }
 
     ~OscillatorBox() override

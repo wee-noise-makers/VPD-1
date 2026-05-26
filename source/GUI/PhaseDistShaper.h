@@ -74,6 +74,26 @@ namespace GUI
             onDragMove(onDragMove)
         {
             setMouseCursor(juce::MouseCursor::DraggingHandCursor);
+            setWantsKeyboardFocus(true);
+        }
+
+        bool keyPressed(const juce::KeyPress& key) override {
+            const auto code = key.getKeyCode();
+
+            if (code == juce::KeyPress::upKey) {
+                curve.moveUp(id, start);
+                return true;
+            } else if (code == juce::KeyPress::downKey) {
+                curve.moveDown(id, start);
+                return true;
+            } else if (code == juce::KeyPress::leftKey) {
+                curve.moveLeft(id, start);
+                return true;
+            } else if (code == juce::KeyPress::rightKey) {
+                curve.moveRight(id, start);
+                return true;
+            }
+            return false;
         }
 
         void paint(juce::Graphics& g) override{
@@ -143,6 +163,15 @@ namespace GUI
             g.drawLine(CX, TR.getY(), CX, BL.getY());
             g.drawRect(bounds, 1);
         }
+
+        bool keyPressed(const juce::KeyPress& key) override {
+            const auto code = key.getKeyCode();
+            if (code == juce::KeyPress::returnKey) {
+                onClick();
+                return true;
+            }
+            return false;
+        }
     };
 
     class RemoveButton : public juce::TextButton {
@@ -166,6 +195,16 @@ namespace GUI
             g.drawLine(TL.getX(), CY, BR.getX(), CY);
             g.drawRect(bounds, 1);
         }
+
+        bool keyPressed(const juce::KeyPress& key) override {
+            const auto code = key.getKeyCode();
+            if (code == juce::KeyPress::returnKey) {
+                onClick();
+                return true;
+            }
+            return false;
+        }
+
     };
     
     class CurveEditor : public gin::MultiParamComponent, private juce::Timer
@@ -178,7 +217,8 @@ namespace GUI
               viewport(viewport),
               vertical(vertical)
         {
-            
+            setWantsKeyboardFocus(true);
+
             std::function<void(int, bool)> onDragStart = [this](int id, bool start) {onPointDragStart(id, start);};
             std::function<void(int, bool)> onDragEnd = [this](int id, bool start) {onPointDragEnd(id, start);};
             std::function<void(int, bool, int, int)> onDragMove = [this](int id, bool start, int x, int y) {onPointDragMove(id, start, x, y);};
@@ -201,6 +241,12 @@ namespace GUI
                                                                      onDragMove));
                 startPoints[i].get()->setEnabled(false);
                 startPoints[i].get()->setVisible(false);
+                startPoints[i].get()->setAccessible(true);
+                startPoints[i].get()->setWantsKeyboardFocus(true);
+                startPoints[i]->setTitle(std::format("Move start point {}", i + 1));
+                // startPoints[i]->setDescription("Move start point");
+                startPoints[i]->setExplicitFocusOrder(i * 10 + 1);
+
                 addChildComponent(startPoints[i].get());
 
                 endPoints.push_back(std::make_unique<MovablePoint>(i,
@@ -213,11 +259,26 @@ namespace GUI
                                                                    onDragMove));
                 endPoints[i].get()->setEnabled(false);
                 endPoints[i].get()->setVisible(false);
+                endPoints[i].get()->setAccessible(true);
+                endPoints[i].get()->setWantsKeyboardFocus(true);
+                endPoints[i]->setTitle(std::format("Move end point {}", i + 1));
+                // endPoints[i]->setDescription("Move end point");
+                endPoints[i]->setExplicitFocusOrder(i * 10 + 3);
+
                 addChildComponent(endPoints[i].get());
 
                 addPointButtons.add(std::make_unique<AddButton>());
                 addPointButtons[i]->setEnabled(false);
                 addPointButtons[i]->setVisible(false);
+
+                // TODO: Add/Remove button don't work with accessibility keyboard...
+                // addPointButtons[i]->setAccessible(true);
+                // addPointButtons[i]->setWantsKeyboardFocus(true);
+                addPointButtons[i]->setTitle
+                  (std::format("Add curve inflection between point {} and {}", i + 1, i + 2));
+                addPointButtons[i]->setExplicitFocusOrder(i * 10 + 4);
+
+
                 addPointButtons[i]->onClick = [this, i]{
                     this->curve.addPoint(i + 1, this->params.bend);
                 };
@@ -226,6 +287,13 @@ namespace GUI
                 removePointButtons.add(std::make_unique<RemoveButton>());
                 removePointButtons[i]->setEnabled(false);
                 removePointButtons[i]->setVisible(false);
+
+                // TODO: Add/Remove button don't work with accessibility keyboard...
+                // removePointButtons[i]->setAccessible(true);
+                // removePointButtons[i]->setWantsKeyboardFocus(true);
+                removePointButtons[i]->setTitle(std::format("Delete inflection point {}", i + 1));
+                removePointButtons[i]->setExplicitFocusOrder(i * 10 + 2);
+
                 removePointButtons[i]->onClick = [this, i]{
                     this->curve.removePoint(i);
                 };
@@ -645,6 +713,19 @@ namespace GUI
         juce::OwnedArray<juce::TextButton> addPointButtons;
         juce::OwnedArray<juce::TextButton> removePointButtons;
     };
+  
+    class AlwaysVisibleAccessibilityHandler : public juce::AccessibilityHandler {
+        public:
+
+        explicit AlwaysVisibleAccessibilityHandler(juce::Component &c) 
+          : juce::AccessibilityHandler(c, juce::AccessibilityRole::group) 
+        {
+        }
+        
+        juce::AccessibleState getCurrentState() const override {
+            return juce::AccessibilityHandler::getCurrentState().withAccessibleOffscreen();
+        }
+    };
 
     class PhaseDistShaper : public gin::MultiParamComponent
     {
@@ -654,24 +735,53 @@ namespace GUI
             : tabs(juce::TabbedButtonBar::Orientation::TabsAtRight)
             , phaseDistCurveEdit(distCurve, viewport, false)
             , gainCurveEdit(gainCurve, gainViewport, true)
-              //, windowPhaseDistCurveEdit(distCurve, windowViewport, false)
 
         {
             setName ("shaper");
+            setDescription ("Phase distortion curve editor");
+            setAccessible(true);
+            setFocusContainerType (juce::Component::FocusContainerType::focusContainer);
+
+            tabs.setTitle("tabs title");
+            tabs.setDescription("Tabs descriptions");
+
+            phaseDistCurveEdit.setTitle("Phase distortion curve");
+            phaseDistCurveEdit.setDescription("phaseDistCurveEdit description");
+
+            gainCurveEdit.setTitle("Per cycle gain curve");
+            gainCurveEdit.setDescription("phaseDistCurveEdit description");
+
+            viewport.setAccessible(true);
+            // viewport.setWantsKeyboardFocus(false);
+
+            // viewport.getVerticalScrollBar().setAccessible(true);
+            // viewport.getVerticalScrollBar().setWantsKeyboardFocus(false);
+            // viewport.getHorizontalScrollBar().setAccessible(true);
+            // viewport.getHorizontalScrollBar().setWantsKeyboardFocus(false);
+
+            gainViewport.setAccessible(true);
+            // gainViewport.getVerticalScrollBar().setAccessible(true);
+            // gainViewport.getVerticalScrollBar().setWantsKeyboardFocus(false);
+            // gainViewport.getHorizontalScrollBar().setAccessible(true);
+            // gainViewport.getHorizontalScrollBar().setWantsKeyboardFocus(false);
 
             addAndMakeVisible(tabs);
+
+            // tabs.setAccessible(false);
+            // tabs.setWantsKeyboardFocus(false);
 
             viewport.setViewedComponent(&phaseDistCurveEdit, false);
             gainViewport.setViewedComponent(&gainCurveEdit, false);
 
-            // addAndMakeVisible(viewport);
             //setTabBarDepth(200);
             tabs.addTab("Distortion", juce::Colours::transparentBlack, &viewport, false);
             tabs.addTab("Gain", juce::Colours::transparentBlack, &gainViewport, false);
 
-            // openWindow();
-
             tabs.setOutline(0);
+        }
+
+        std::unique_ptr<juce::AccessibilityHandler> createAccessibilityHandler() override {
+            return std::make_unique<AlwaysVisibleAccessibilityHandler>(*this);
         }
 
         void setWavetables (gin::Wavetable* bllt_) {
@@ -706,21 +816,6 @@ namespace GUI
             const auto gainCurveBounds = viewportBounds.withSizeKeepingCentre(viewportBounds.proportionOfWidth(0.98f), height);
             gainCurveEdit.setBounds(gainCurveBounds);
         }
- 
-        // void openWindow() {
-        //     if (window)
-        //         window->toFront(true);
-        //     else
-        //     {
-        //         window = new juce::DocumentWindow("test", 
-        //             juce::Colours::red, juce::DocumentWindow::allButtons, true);
-        //         window->centreWithSize (600, 400);
-        //         window->addAndMakeVisible(windowViewport);
-        //         windowViewport.setBounds(window->getBounds());
-
-        //         window->setVisible (true);
-        //     }
-        // }
 
         private:
 
@@ -731,10 +826,5 @@ namespace GUI
         juce::Viewport gainViewport;
 
         juce::TabbedComponent tabs;
-
-        // juce::Viewport windowViewport;
-        // CurveEditor windowPhaseDistCurveEdit;
-        // juce::Component::SafePointer<juce::TopLevelWindow> window;
-
     };
 }

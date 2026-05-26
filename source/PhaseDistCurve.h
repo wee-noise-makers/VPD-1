@@ -133,8 +133,65 @@ class PhaseDistCurve {
             points[id].end = constrained;
         }
 
+        if (isGain) {
+            juce::AccessibilityHandler::postAnnouncement
+              (std::format("gain = {:.2f} at position {:.2f}", constrained.getX(), constrained.getY()),
+               juce::AccessibilityHandler::AnnouncementPriority::medium);
+
+        } else {
+            juce::AccessibilityHandler::postAnnouncement
+              (std::format("phase output {:.2f} at position {:.2f}", constrained.getY(), constrained.getX()),
+               juce::AccessibilityHandler::AnnouncementPriority::medium);
+        }
+
         dirty = true;
         return constrained;
+    }
+
+    CurvePoint moveRelative(int id, bool start, float x, float y) {
+        jassert(id >= firstPointId() && id <= lastPointId());
+    
+        CurvePoint target;
+        if (start) {
+            target = points[id].start;
+        } else {
+            target = points[id].end;
+        }
+        
+        target.setX (target.getX() + x);
+        target.setY (target.getY() + y);
+        return movePoint(id, start, target);
+    }
+
+    inline static const float moveStep_ = 0.05f;
+
+    CurvePoint moveUp(int id, bool start) {
+        if (isGain) {
+            return moveRelative(id, start, 0.f, moveStep_);
+        } else {
+            return moveRelative(id, start, moveStep_, 0.f);
+        }
+    }
+    CurvePoint moveDown(int id, bool start) {
+        if (isGain) {
+            return moveRelative(id, start, 0.f, -moveStep_);
+        } else {
+            return moveRelative(id, start, -moveStep_, 0.f);
+        }
+    }
+    CurvePoint moveLeft(int id, bool start) {
+        if (isGain) {
+            return moveRelative(id, start, -moveStep_, 0.f);
+        } else {
+            return moveRelative(id, start, 0.f, -moveStep_);
+        }
+    }
+    CurvePoint moveRight(int id, bool start) {
+        if (isGain) {
+            return moveRelative(id, start, moveStep_, 0.f);
+        } else {
+            return moveRelative(id, start, 0.f, moveStep_);
+        }
     }
     
     void addPoint(int beforeId, float distAmount = 0.5f) {
