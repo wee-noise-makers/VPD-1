@@ -242,7 +242,7 @@ void WavetableAudioProcessor::GlobalParams::setup (WavetableAudioProcessor& p)
     glideMode   = p.addIntParam ("gMode",       "Glide Mode", "Glide",    "",   { 0.0, 2.0, 0.0, 1.0 }, 0.0f, 0.0f, glideModeTextFunction);
     glideRate   = p.addExtParam ("gRate",       "Glide Time", "Time",     "s",  { 0.001f, 20.0, 0.0, 0.2f }, 0.3f, 0.0f);
     legato      = p.addIntParam ("legato",      "Legato",     "",         "",   { 0.0, 1.0, 0.0, 1.0 }, 0.0, 0.0f, enableTextFunction);
-    level       = p.addExtParam ("level",       "Level",      "",         "db", { -100.0, 0.0, 1.0, 4.0f }, 0.0, 0.0f);
+    level       = p.addExtParam ("level",       "Level",      "",         "db", { -100.0, 0.0, 1.0, 4.0f }, -8.0, 0.0f);
     voices      = p.addIntParam ("voices",      "Voices",     "",         "",   { 2.0, 40.0, 1.0, 1.0 }, 40.0f, 0.0f);
     mpe         = p.addIntParam ("mpe",         "MPE",        "",         "",   { 0.0, 1.0, 1.0, 1.0 }, 0.0f, 0.0f, enableTextFunction);
     pitchBend   = p.addIntParam ("pitchbend",   "Pitch Bend", "PB Range", "",   { 0.0, 48.0, 1.0, 1.0 }, 2.0f, 0.0f);
@@ -968,6 +968,7 @@ bool WavetableAudioProcessor::isParamLocked (gin::Parameter* p)
     if (p == uiParams.activeMOD) return true;
     if (p == uiParams.activeLFO) return true;
     if (p == uiParams.activeENV) return true;
+    if (p == globalParams.level) return true;
 
     return false;
 }
