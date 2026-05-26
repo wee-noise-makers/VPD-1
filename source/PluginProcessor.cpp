@@ -584,12 +584,7 @@ public:
               juce::AffineTransform::rotation(angle - pi).translated(centreX, centreY);
             juce::Path tick;
             tick.addRoundedRectangle (r, tickW / 3);            
-
-            if (slider.isEnabled()) {
-                g.setColour (highlightColor);
-            } else {
-                g.setColour(color);
-            }
+            g.setColour(slider.findColour (gin::PluginLookAndFeel::matte2ColourId, true));
             g.fillPath (tick, t);
         }
     
