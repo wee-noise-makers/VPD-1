@@ -133,17 +133,6 @@ class PhaseDistCurve {
             points[id].end = constrained;
         }
 
-        if (isGain) {
-            juce::AccessibilityHandler::postAnnouncement
-              (std::format("gain = {:.2f} at position {:.2f}", constrained.getX(), constrained.getY()),
-               juce::AccessibilityHandler::AnnouncementPriority::medium);
-
-        } else {
-            juce::AccessibilityHandler::postAnnouncement
-              (std::format("phase output {:.2f} at position {:.2f}", constrained.getY(), constrained.getX()),
-               juce::AccessibilityHandler::AnnouncementPriority::medium);
-        }
-
         dirty = true;
         return constrained;
     }
@@ -160,7 +149,23 @@ class PhaseDistCurve {
         
         target.setX (target.getX() + x);
         target.setY (target.getY() + y);
-        return movePoint(id, start, target);
+        const auto res = movePoint(id, start, target);
+
+        if (isGain) {
+            std::stringstream fmt;
+            fmt << "gain = " << res.getX() << " at position " << res.getY();
+            juce::AccessibilityHandler::postAnnouncement
+              (fmt.str(), juce::AccessibilityHandler::AnnouncementPriority::medium);
+
+        } else {
+            std::stringstream fmt;
+            fmt << "phase output " << res.getY() << " at position " << res.getX();
+            juce::AccessibilityHandler::postAnnouncement
+              (fmt.str(),
+               juce::AccessibilityHandler::AnnouncementPriority::medium);
+        }
+
+        return res;
     }
 
     inline static const float moveStep_ = 0.05f;
