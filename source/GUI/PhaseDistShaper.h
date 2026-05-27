@@ -243,8 +243,9 @@ namespace GUI
                 startPoints[i].get()->setVisible(false);
                 startPoints[i].get()->setAccessible(true);
                 startPoints[i].get()->setWantsKeyboardFocus(true);
-                startPoints[i]->setTitle(std::format("Move start point {}", i + 1));
-                // startPoints[i]->setDescription("Move start point");
+                std::stringstream sTitle;
+                sTitle << "Move start point" << (i + 1);
+                startPoints[i]->setTitle(sTitle.str());
                 startPoints[i]->setExplicitFocusOrder(i * 10 + 1);
 
                 addChildComponent(startPoints[i].get());
@@ -261,8 +262,9 @@ namespace GUI
                 endPoints[i].get()->setVisible(false);
                 endPoints[i].get()->setAccessible(true);
                 endPoints[i].get()->setWantsKeyboardFocus(true);
-                endPoints[i]->setTitle(std::format("Move end point {}", i + 1));
-                // endPoints[i]->setDescription("Move end point");
+                std::stringstream eTitle;
+                eTitle << "Move end point" << (i + 1);
+                endPoints[i]->setTitle(eTitle.str());
                 endPoints[i]->setExplicitFocusOrder(i * 10 + 3);
 
                 addChildComponent(endPoints[i].get());
@@ -273,9 +275,10 @@ namespace GUI
 
                 // TODO: Add/Remove button don't work with accessibility keyboard...
                 // addPointButtons[i]->setAccessible(true);
-                // addPointButtons[i]->setWantsKeyboardFocus(true);
-                addPointButtons[i]->setTitle
-                  (std::format("Add curve inflection between point {} and {}", i + 1, i + 2));
+                addPointButtons[i]->setWantsKeyboardFocus(false);
+                std::stringstream addTitle;
+                addTitle << "Add curve inflection between point" << (i + 1) << " and " << (i + 2);
+                addPointButtons[i]->setTitle(addTitle.str());
                 addPointButtons[i]->setExplicitFocusOrder(i * 10 + 4);
 
 
@@ -290,8 +293,11 @@ namespace GUI
 
                 // TODO: Add/Remove button don't work with accessibility keyboard...
                 // removePointButtons[i]->setAccessible(true);
-                // removePointButtons[i]->setWantsKeyboardFocus(true);
-                removePointButtons[i]->setTitle(std::format("Delete inflection point {}", i + 1));
+                removePointButtons[i]->setWantsKeyboardFocus(false);
+                std::stringstream removeTitle;
+                removeTitle << "Remove curve inflection point" << (i + 1);
+
+                removePointButtons[i]->setTitle(removeTitle.str());
                 removePointButtons[i]->setExplicitFocusOrder(i * 10 + 2);
 
                 removePointButtons[i]->onClick = [this, i]{
