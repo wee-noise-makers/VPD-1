@@ -15,7 +15,8 @@ constexpr auto fxReverb     = 3;
 
 //==============================================================================
 class WavetableAudioProcessor : public gin::Processor,
-                                public gin::Synthesiser
+                                public gin::Synthesiser,
+                                public juce::ChangeListener
 {
 public:
     //==============================================================================
@@ -60,6 +61,13 @@ public:
 
     juce::MPEInstrument& getMpeInstrument() {
         return this->instrument;
+    }
+
+    void changeListenerCallback (juce::ChangeBroadcaster* source) {
+        std::stringstream fmt;
+        fmt << currentProgramName << " preset loaded";
+        juce::AccessibilityHandler::postAnnouncement
+            (fmt.str(), juce::AccessibilityHandler::AnnouncementPriority::low);
     }
 
     // Voice Params

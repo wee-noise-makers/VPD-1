@@ -713,6 +713,9 @@ WavetableAudioProcessor::WavetableAudioProcessor()
 
     reloadWavetables();
 
+    // Listen to program change to announce them
+    addChangeListener(this);
+
     for (int i = 0; i < juce::numElementsInArray (oscParams); i++)
         oscParams[i].setup (*this, i);
 

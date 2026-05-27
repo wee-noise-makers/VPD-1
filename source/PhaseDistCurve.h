@@ -155,14 +155,14 @@ class PhaseDistCurve {
             std::stringstream fmt;
             fmt << "gain = " << res.getX() << " at position " << res.getY();
             juce::AccessibilityHandler::postAnnouncement
-              (fmt.str(), juce::AccessibilityHandler::AnnouncementPriority::medium);
+              (fmt.str(), juce::AccessibilityHandler::AnnouncementPriority::low);
 
         } else {
             std::stringstream fmt;
             fmt << "phase output " << res.getY() << " at position " << res.getX();
             juce::AccessibilityHandler::postAnnouncement
               (fmt.str(),
-               juce::AccessibilityHandler::AnnouncementPriority::medium);
+               juce::AccessibilityHandler::AnnouncementPriority::low);
         }
 
         return res;
